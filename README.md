@@ -27,4 +27,4 @@ Note on Web Interface: Bounties and Submissions are selected via text input. Giv
 The interface updates dynamically based on the time passed in the smart contract. When
 
 
-The contract is deployed on the rinkeby network and the web app will work with that contract.
+The contract is deployed on the rinkeby network at 0xbcb43de2b5dc3d1d9f906787b0fae4069bbf1bc3.  The web app will work with that contract.
