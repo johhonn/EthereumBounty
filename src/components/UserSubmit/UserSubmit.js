@@ -234,7 +234,7 @@ render(){
   end=moment(end).format('LLLL')
   console.log(((this.state.BountyStatus==5)||(this.state.BountyStatus==8))&&(this.state.winner==this.state.myAddress))
   if(this.state.killed==true){
-    Display=(<div><h3>Game Was Killed by creator</h3></div>)
+    Display=(<div><h3>The bounty was killed by its creator</h3></div>)
   }
   else{
 

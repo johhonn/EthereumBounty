@@ -1,0 +1,57 @@
+My tests use javascript to test 6 different scenarios that occur in use of the smart contract.
+
+Javascript Date() and timeout() are used to create the time requirements to simulate the progression needed for full use of the contract. The  deployed contract for testing must be set with  validation and arbitration intervals of 10 seconds so that the tests can work.
+
+The file expect Throw is used to test for expected throws in the contract. It was copied from https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/test/helpers/expectThrow.js
+
+Scenario 1:
+A bounty is created. Three users are registered and create submissions.The winner is chosen and is able to withdraw their Reward without any dispute in the result.
+Variables Tested:
+  1. Each variable in the newly initialized Bounty struct is test for accuracy upon creaction.
+  2. Submission hash and address is set properly and can be retrieved using the ViewSubmision function
+  3. The Bounty submission and user counter is updated properly
+  4. The contract balance increases by the correct amount when ether is deposited for a bounty and decreases to 0 when the amount is withdrawn
+  5. The registered games count properly updates for participants increases by one when a use is registered
+Throws Tested:
+  1.contract should throw if creator tries to withdraw after creation
+  2.A participant cannot  be registered twice
+  3.The Judge cannot resolve a dispute that has not happened **/ need to finish
+
+Scenario 2:
+A bounty is created. Three users are registered but no  submissions are made before the end date. This means the bounty creator withdraws their deposit.
+Variables Tested:
+  1.The contract balance increases by the correct amount when ether is deposited for a bounty and decreases to 0 when the amount is withdrawn.
+Throws Tested:
+  1.The owner cannot verify a submission as none exist
+  2.participants cannot make a dispute as they have not submitted
+
+
+
+Scenario 3:
+A bounty is created. Three users are registered and create submissions. The winner is chosen but the result is disputed. The judge picks a new winner and they are able to withdraw.
+Variables Tested:
+  1.The disputed status of the created bounty is  true meaning a disputed timeout is set.
+  2.The winner is changed to accounts[4] by judge when the dispute is resolved
+  3.Dispute data can be successfully uploaded
+
+Scenario 4:
+A bounty is created. Three users are registered and create submissions. The winner is chosen but the result is disputed. The judge does not act and the dispute times out. The originally chosen winner withdraws their reward.
+Variables Tested:
+  1.The dispute Resolved status is true after the timeout passes.
+
+Scenario 5:
+A bounty is created and users are registered. The bounty is killed before it starts. The creator gets their deposit back and no users can submit.
+Variables Tested:
+  1. The killedBounty mapping returns true for the bountID
+  2. The Bounty finished Status is updated to true
+  3. The kill function returns the Bounty deposit to owner
+Throws Tested:
+  1.registered users cannot make a submission
+  2.owner cannot withdraw the bounty payout
+
+  Scenario 6:
+  Bounty creation is disabled and reenabled by the bounty creator by calling cancelCreation twice
+  Variables Tested:
+    1.That the variable cancelCreate is first set to true with the first function call then set to false with the second function call
+  Throws Tested
+    1.Calling the CreateBounty function fails

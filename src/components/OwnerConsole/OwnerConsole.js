@@ -127,7 +127,17 @@ convertToBuffer = async(reader) => {
      //set this buffer -using es6 syntax
        this.setState({buffer});
         };
+        submitPayout=()=>{
+          let web3=this.state.web3
+          let Bounty=this.state.BountyID;
 
+          web3.eth.getAccounts((error, accounts) => {
+            PB.WithDrawReward(Bounty,{from:accounts[0]}).then(result=>{
+              console.log(result)
+            })
+
+           })
+        }
 
 
 onSubmit=async(event)=>{
