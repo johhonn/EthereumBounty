@@ -1,0 +1,18 @@
+button, input {
+  width:100px;
+}
+
+span {
+  font-size:20px;
+}
+
+.btn:not(:disabled):not(.disabled) {
+  align-items:center;
+}
+
+.row.justify-content-center.align-items-center {
+  width:1000px;
+}
+.myDatePicker {
+  width: 200px;
+}
