@@ -24,7 +24,7 @@ After a dispute has been made the judge can choose any submission as a new winne
 If no dispute was made the winner can withdraw their payout directly after the arbitration Interval has ended.
 
 Note on Web Interface: Bounties and Submissions are selected via text input. Given 5 bounties the first can be selected by entering 1, the second by selecting 2 and so on.
-The interface updates dynamically based on the time passed in the smart contract. When
+The interface updates dynamically based on the time passed in the smart contract. 
 
 
 The contract is deployed on the rinkeby network at 0xbcb43de2b5dc3d1d9f906787b0fae4069bbf1bc3.  The web app will work with that contract.The deployed version of has validation interval,dispute creation interval, and dispute resolution interval of 10 minutes.
