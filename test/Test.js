@@ -16,7 +16,7 @@ contract('Bounty tests', function(accounts) {
 
 
 
-  it('Created a new Bounty with 3 registered users and submissions and selects a winner', async function() {
+  it('Created a new Bounty with 3 registered users and submissions and selects a winner with no dispute', async function() {
   var MyGame=await SH.deployed();
   console.log(SH.address)
   var time=(new Date().getTime())
@@ -33,8 +33,9 @@ contract('Bounty tests', function(accounts) {
   assert.equal(100000,balance,"eth was deposited")
   await E.expectThrow(MyGame.WithDrawReward(1,{from:accounts[0]}));
 
-
+  console.log("started")
   await MyGame.RegisterParticipant(accounts[4],1,{from:accounts[0]})
+  console.log("registered")
   await E.expectThrow(MyGame.RegisterParticipant(accounts[4],1,{from:accounts[0]}))
   await MyGame.RegisterParticipant(accounts[5],1,{from:accounts[0]})
   await MyGame.RegisterParticipant(accounts[6],1,{from:accounts[0]})
@@ -70,6 +71,7 @@ await MyGame.VerifySubmission(1,1,{from:accounts[0]})
 info=await MyGame.GetBountyDetails.call(1);
 assert.equal(info[9],3,"bounty submission updates")
 console.log(info[10])
+await E.expectThrow(MyGame.ResolveDispute(1,1,{from:accounts[3]}))
 await sleep(30000)
 status=await MyGame.getTimePeriod(1 )
 console.log(status.c[0])
@@ -231,6 +233,7 @@ it('test a bounty that is canceled', async function(){
 //console.log(gasCost+'gascost')
 //var increase=payout-gasCost
   var Balance=await web3.eth.getBalance(SH.address)
+  console.log(Balance)
 //var actualincrease=updatedBalance-balance;
   assert.equal(Balance,0,'contract returns deposit')
   var status= await MyGame.wasGameKilled(5,{from:accounts[4]})

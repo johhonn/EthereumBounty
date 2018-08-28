@@ -1,6 +1,7 @@
 My tests use javascript to test 6 different scenarios that occur in use of the smart contract.
 
-Javascript Date() and timeout() are used to create the time requirements to simulate the progression needed for full use of the contract. The  deployed contract for testing must be set with  validation and arbitration intervals of 10 seconds so that the tests can work.
+Javascript Date() and timeout() are used to create the time requirements to simulate the progression needed for full use of the contract. The  deployed contract for testing must be set with  validation and arbitration intervals of 10 seconds and a dispute timeout of 30 seconds so that the tests can work.
+The tests can occasionally fail due to errors in time calculation.In this case they may need to be run again.
 
 The file expect Throw is used to test for expected throws in the contract. It was copied from https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/test/helpers/expectThrow.js
 
@@ -15,7 +16,7 @@ Variables Tested:
 Throws Tested:
   1.contract should throw if creator tries to withdraw after creation
   2.A participant cannot  be registered twice
-  3.The Judge cannot resolve a dispute that has not happened **/ need to finish
+  3.The Judge cannot resolve a dispute that has not happened 
 
 Scenario 2:
 A bounty is created. Three users are registered but no  submissions are made before the end date. This means the bounty creator withdraws their deposit.

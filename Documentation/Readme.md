@@ -23,4 +23,4 @@ After a dispute has been made the judge can choose any submission as a new winne
 If no dispute was made the winner can withdraw their payout directly after the arbitration Interval has ended.
 
 Note on Web Interface: Bounties and Submissions are selected via text input. Given 5 bounties the first can be selected by entering 1, the second by selecting 2 and so on.
-The interface updates dynamically based on the time passed in the smart contract. When
+The interface updates dynamically based on the time passed in the smart contract. 

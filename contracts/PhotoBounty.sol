@@ -8,7 +8,7 @@ uint validationInterval;
 uint arbitrationInterval;
 uint TimeOut;
 bool cancelCreate;
-address owner;
+address private owner;
 mapping(uint=>Bounty) BountyMap;
 
 mapping(address=>uint[]) BountyList;
@@ -110,13 +110,16 @@ modifier isAlive(uint _bounty){
   require(BountyMap[_bounty].finished==false);
   _;
 }
-
+modifier validTimes(uint _start, uint _end){
+  require((_end+_start>_end)&&(_end>_start));
+  _;
+}
 
 // Creates a new Bounty belonging to the sender
-function CreateBounty(uint _payout,uint Start,uint End,address _judge,string _name,string _info) public payable {
+function CreateBounty(uint _payout,uint Start,uint End,address _judge,string _name,string _info) public payable validTimes(Start,End) {
 require(cancelCreate==false);
 require(msg.value==_payout);
-//require((Start>=now)&&(End>Start));
+
 Bounty memory temp =Bounty(_judge,msg.sender,_info,0,_payout,Start,End,_name,false,0,msg.sender);
 uint total=totalBounties+1;
 BountyMap[total]=temp;
@@ -124,6 +127,7 @@ BountyList[msg.sender].push(total);
 totalBounties=total;
 GamesToJudge[_judge].push(total);
 }
+
 // Updates bounty IPFS description
 function SetInfo(uint bounty,string _info) public isCreator(bounty) isAlive(bounty) gameNotStarted(bounty){
 
