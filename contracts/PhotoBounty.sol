@@ -222,7 +222,11 @@ function ResolveDispute(uint _bounty,uint submission) public   isArbitor(_bounty
 // returns the Submission creator and IPFS hash for a bounty based on submission order start at 1 for the first bounty
 function ViewSubmision(uint _bounty,uint submission) public constant returns(string,address,uint){
   address a= BountyMap[_bounty].SubmissionOrder[submission];
-  return (BountyMap[_bounty].Submissions[a].IPFShash,a,BountyMap[_bounty].Submissions[a].time);
+  return (
+    BountyMap[_bounty].Submissions[a].IPFShash,
+    a,
+    BountyMap[_bounty].Submissions[a].time
+    );
 }
 // allows the chosen winner to withdraw the reward
 function WithDrawReward(uint bounty) disputeIsResolved(bounty){
@@ -235,7 +239,19 @@ function WithDrawReward(uint bounty) disputeIsResolved(bounty){
 }
 
 //returns all paremeters of the Bounty struct
-function GetBountyDetails(uint _bounty) public constant returns(address,address,string,uint,uint,uint,uint,string,bool,uint,address){
+function GetBountyDetails(uint _bounty) public constant
+returns(
+  address,
+  address,
+  string,
+  uint,
+  uint,
+  uint,
+  uint,
+  string,
+  bool,
+  uint,
+  address){
   Bounty memory t=BountyMap[_bounty];
   return(
     t.Arbitor,
@@ -305,8 +321,9 @@ function GetBountyDetails(uint _bounty) public constant returns(address,address,
     uint ret=0;
     if(now<=BountyMap[_bounty].startDate) ret=1;
     if((now>BountyMap[_bounty].startDate)&&(now<BountyMap[_bounty].endDate)) ret=2;
-    if((now>BountyMap[_bounty].endDate)&&(now<(BountyMap[_bounty].endDate+validationInterval)) ) ret=3;
-    if((now>(BountyMap[_bounty].endDate+validationInterval))&&(now<(BountyMap[_bounty].endDate+validationInterval+arbitrationInterval))) ret=4;
+    if((now>BountyMap[_bounty].endDate)&&(now<(BountyMap[_bounty].endDate+validationInterval))) ret=3;
+    if((now>(BountyMap[_bounty].endDate+validationInterval))&&
+    (now<(BountyMap[_bounty].endDate+validationInterval+arbitrationInterval))) ret=4;
     if(now>(BountyMap[_bounty].endDate+validationInterval+arbitrationInterval)) ret=5;
     if((ret==4)&&(DisputeTimeOut[_bounty]!=0)) ret=6;
     if( (ret==5)&&(now<DisputeTimeOut[_bounty])) ret=7;

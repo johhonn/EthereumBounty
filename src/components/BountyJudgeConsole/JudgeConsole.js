@@ -119,7 +119,7 @@ getBountyInfo(address,ID){
   })
   PB.totalDisputesUploaded(ID).then(result=>{
     console.log(result+ "dispute files")
-    this.setState({totaldisputefiles:result})
+    this.setState({totaldisputefiles:result.c[0]})
   })
 }
 
@@ -200,7 +200,7 @@ ResolveDispute=()=>{
   let Bounty=this.state.BountyID;
   let submission=this.state.subID
   web3.eth.getAccounts((error, accounts) => {
-    PB.VerifySubmission(Bounty,submission).then(result=>{
+    PB.VerifySubmission(Bounty,submission,{from:accounts[0]}).then(result=>{
        console.log(result)
     })
 
@@ -297,7 +297,9 @@ render(){
     )
   }
 if((BountyStatus==6)||(BountyStatus==7)){
-  console.log(this.state.subhash+ "sidjhfcosdjafoisdj")
+
+  var d=this.state.totaldisputefiles
+  console.log(d+ " sidjhfcosdjafoisdj")
 Display=(
   <div>
   <h3> Bounty Has been Disputed. The originally chosen winner was {this.state.winner} View Current Submissions and choose a new winner</h3>
@@ -327,7 +329,7 @@ Display=(
 
       </Button>
 
-      <h3> {this.state.totaldisputefiles} different dispute files have been upload</h3>
+      <h3> there are {d} different dispute files have been upload</h3>
       <Form >
         <input
           type = "text"

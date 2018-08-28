@@ -16,7 +16,7 @@ contract('Bounty tests', function(accounts) {
 
 
 
-  it('Created a new Bounty', async function() {
+  it('Created a new Bounty with 3 registered users and submissions and selects a winner', async function() {
   var MyGame=await SH.deployed();
   console.log(SH.address)
   var time=(new Date().getTime())
